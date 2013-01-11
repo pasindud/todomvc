@@ -1,6 +1,11 @@
 
 var casper = require('casper').create();
 
+// De l'intérêt de faire plusieurs then ?
+// faire une table de correspondance pour les diff implem plutot (juste avoir a mettre "dart" par exemple)
+
+// TODO see for include helper functions common file
+
 // test URL : '../architecture-examples/angularjs/index.html';
 var URL = casper.cli.get(0);
 
@@ -12,6 +17,7 @@ casper.addTodo = function(title) {
 	this.page.sendEvent('keyup', this.page.event.key.Enter);
 };
 
+// TODO rename "displayed" items
 casper.assertItemCount = function(itemsNumber, message) {
 	this.test.assertEval(function (itemsNumber) {
 		return document.querySelectorAll('#todo-list li').length === itemsNumber;
