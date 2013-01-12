@@ -73,6 +73,7 @@ casper.then(function () {
 casper.then(function () {
 	// TODO use [href=#/selected] would be better, but not necessarly a link ?
 	// GWT model...
+	// see clickLabel
 	this.click('#filters li:nth-child(2) a');
 
 	// TODO test URL at each time

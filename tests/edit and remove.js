@@ -69,6 +69,10 @@ casper.then(function () {
 // remove one
 casper.then(function () {
 	this.click('#todo-list li:nth-child(1) button');
+	//this.mouseEvent('click', '#todo-list li:nth-child(1) button');
+	//this.evaluate(function() {
+	//	__utils__.mouseEvent('click', '#todo-list li:nth-child(1) button');
+	//});
 
 	this.assertLeftItemsString('0 items left', 'Todo has been removed');
 });
@@ -76,14 +80,24 @@ casper.then(function () {
 // edit one
 casper.then(function() {
 	this.addTodo('Some Task');
-	this.click('#todo-list li:nth-child(1) label');
+	this.test.assertVisible('#todo-list li:nth-child(1) label');
+	this.test.assertNotVisible('#todo-list li:nth-child(1) .edit');
+	//this.click('#todo-list li:nth-child(1) label');
 	// TODO how to dblclick ?
-	this.click('#todo-list li:nth-child(1) label');
-	this.page.sendEvent('keydown', 'yeah');
+	
+	//this.click('#todo-list li:nth-child(1) label');
+	this.mouseEvent('dblclick', '#todo-list li:nth-child(1) label');
+	//this.evaluate(function() {
+	//	__utils__.mouseEvent('dblclick', '#todo-list li:nth-child(1) label');
+	//});
+	this.test.assertNotVisible('#todo-list li:nth-child(1) label');
+	this.test.assertVisible('#todo-list li:nth-child(1) .edit');
+	// Specs do not specify if text must be selected (?)
+	this.page.sendEvent('keydown', ' edited');
 	// TODO remove one, but keep which event ? Jquery impl prefers keyup...
 	this.page.sendEvent('keydown', this.page.event.key.Enter);
 	this.page.sendEvent('keyup', this.page.event.key.Enter);
-	this.test.assertEquals(this.fetchText('#todo-list li:nth-child(1) label'), 'yeah', 'Task title has been changed');
+	this.test.assertEquals(this.fetchText('#todo-list li:nth-child(1) label'), 'Some Task edited', 'Task title has been changed');
 });
 
 casper.run(function () {
