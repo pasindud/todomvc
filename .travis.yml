@@ -9,6 +9,6 @@ before_script:
  - cd ./bin
 
 script:
- - "./casperjs ../../todomvc/tests/test.js ../../todomvc/architecture-examples/angularjs/index.html"
- - "./casperjs ../../todomvc/tests/test.js ../../todomvc/architecture-examples/jquery/index.html"
- - "./casperjs ../../todomvc/tests/test.js ../../todomvc/architecture-examples/dart/web/index.html"
+ - "./casperjs ../../todomvc/tests/count and remove all.js ../../todomvc/architecture-examples/angularjs/index.html"
+ - "./casperjs ../../todomvc/tests/count and remove all.js ../../todomvc/architecture-examples/jquery/index.html"
+ - "./casperjs ../../todomvc/tests/count and remove all.js ../../todomvc/architecture-examples/dart/web/index.html"
