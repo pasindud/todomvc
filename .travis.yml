@@ -7,7 +7,7 @@ before_script:
  - cd casperjs
  - git checkout tags/1.0.0
  - cd ../todomvc
- - ln ../casperjs/bin/casperjs casperjs
+ - export casperjs=../casperjs/bin/casperjs
 
 script:
  - "./test.rb"
