@@ -10,4 +10,4 @@ before_script:
  - export casperjs=../casperjs/bin/casperjs
 
 script:
- - "./test.rb"
+ - ./test.rb
