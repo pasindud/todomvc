@@ -20,6 +20,7 @@ tests = ['count', 'edit', 'history', 'storage']
 
 fmks = Hash.new
 fmks['angularjs'] = 'architecture-examples/angularjs/index.html'
+=begin
 fmks['angularjs-perf'] = 'architecture-examples/angularjs-perf/index.html'
 fmks['backbone'] = 'architecture-examples/backbone/index.html'
 fmks['dart'] = 'architecture-examples/dart/web/index.html'
@@ -28,6 +29,7 @@ fmks['jquery'] = 'architecture-examples/jquery/index.html'
 fmks['knockoutjs'] = 'architecture-examples/knockoutjs/index.html'
 fmks['spine'] = 'architecture-examples/spine/index.html'
 fmks['vanillajs'] = 'vanilla-examples/vanillajs/index.html'
+=end
 
 def printok()
   print "\033[32m"
@@ -49,10 +51,13 @@ end
 
 print "\n"
 
+setCasper = "if [ -z ${casperjs} ]; then export casperjs=casperjs; fi"
+
 fmks.keys.each do |key|
   printf '%14s | ' % key
   tests.each do |test|
-    system("$casperjs tests/#{test}.js #{fmks[key]} &> /dev/null") ? printok : printko
+    system("#{setCasper};$casperjs tests/#{test}.js #{fmks[key]}")
+    # &> /dev/null") ? printok : printko
   end
   print "\n"
 end
