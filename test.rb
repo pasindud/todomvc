@@ -16,18 +16,19 @@
 #derby        knockoutjs_classBindingProvider puremvc       troopjs
 #dermis       maria       rappidjs
 
-tests = ['count', 'edit', 'history', 'storage']
+tests = ['count']
+#, 'edit', 'history', 'storage']
 
 fmks = Hash.new
 fmks['angularjs'] = 'architecture-examples/angularjs/index.html'
-fmks['angularjs-perf'] = 'architecture-examples/angularjs-perf/index.html'
-fmks['backbone'] = 'architecture-examples/backbone/index.html'
-fmks['dart'] = 'architecture-examples/dart/web/index.html'
-fmks['emberjs'] = 'architecture-examples/emberjs/index.html'
-fmks['jquery'] = 'architecture-examples/jquery/index.html'
-fmks['knockoutjs'] = 'architecture-examples/knockoutjs/index.html'
-fmks['spine'] = 'architecture-examples/spine/index.html'
-fmks['vanillajs'] = 'vanilla-examples/vanillajs/index.html'
+#fmks['angularjs-perf'] = 'architecture-examples/angularjs-perf/index.html'
+#fmks['backbone'] = 'architecture-examples/backbone/index.html'
+#fmks['dart'] = 'architecture-examples/dart/web/index.html'
+#fmks['emberjs'] = 'architecture-examples/emberjs/index.html'
+#fmks['jquery'] = 'architecture-examples/jquery/index.html'
+#fmks['knockoutjs'] = 'architecture-examples/knockoutjs/index.html'
+#fmks['spine'] = 'architecture-examples/spine/index.html'
+#fmks['vanillajs'] = 'vanilla-examples/vanillajs/index.html'
 
 def printok()
   print "\033[32m"
