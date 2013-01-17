@@ -52,7 +52,7 @@ print "\n"
 fmks.keys.each do |key|
   printf '%14s | ' % key
   tests.each do |test|
-    system("casperjs tests/#{test}.js #{fmks[key]} &> /dev/null") ? printok : printko
+    system("casperjs tests/#{test}.js #{fmks[key]}")
   end
   print "\n"
 end
