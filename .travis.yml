@@ -6,9 +6,8 @@ before_script:
  - git clone git://github.com/n1k0/casperjs.git
  - cd casperjs
  - git checkout tags/1.0.0
- - cd ./bin
+ - cd ../todomvc
+ - ln ../../casperjs/bin/casperjs casperjs
 
 script:
- - "./casperjs ../../todomvc/tests/count and remove all.js ../../todomvc/architecture-examples/angularjs/index.html"
- - "./casperjs ../../todomvc/tests/count and remove all.js ../../todomvc/architecture-examples/jquery/index.html"
- - "./casperjs ../../todomvc/tests/count and remove all.js ../../todomvc/architecture-examples/dart/web/index.html"
+ - "./test.rb"
