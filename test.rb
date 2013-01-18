@@ -56,7 +56,7 @@ setCasper = "if [ -z ${casperjs} ]; then export casperjs=casperjs; fi"
 fmks.keys.each do |key|
   printf '%14s | ' % key
   tests.each do |test|
-    system("#{setCasper};$casperjs tests/#{test}.js #{fmks[key]}") ? printok : printko
+    system("#{setCasper};$casperjs tests/#{test}.js #{fmks[key]} > /dev/null") ? printok : printko
   end
   print "\n"
 end
