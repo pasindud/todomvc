@@ -10,7 +10,21 @@ Dart compiles to JavaScript and thus runs across modern browsers. Dart also can 
 
 To edit and debug Dart, you can use Dart Editor. The editor ships with the [SDK](http://dartlang.org) and [Dartium](http://www.dartlang.org/dartium/), our version of Chromium with an embedded Dart VM.
 
-For testing purpose, dart/app.dart will run on any browser thanks to sdk/dart.js. First run will take time to process dart files.
+? For testing purpose, dart/app.dart will run on any browser thanks to sdk/dart.js. First run will take time to process dart files.
+
+## Compilation result
+
+Dart SDK includes dart2js blahblah
+
+minification ?
+
+## Build
+
+[![Build Status](https://drone.io/mlorber/todomvc-dart/status.png)](https://drone.io/mlorber/todomvc-dart/latest)
+
+Dart SDK is still under active development, and new releases include lots of breaking changes. The application is built by drone.io, which proposes a specific build trigger for Dart SDK updates.
+
+Build history can be seen [here](https://drone.io/mlorber/todomvc-dart)
 
 ## Credit
 
