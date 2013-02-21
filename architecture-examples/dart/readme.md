@@ -16,7 +16,7 @@ To edit and debug Dart, you can use Dart Editor. The editor ships with the [SDK]
 
 Dart SDK includes dart2js blahblah
 
-dart2js -oapp.dart.js app.dart
+dart2js -oapp.dart.js app.dart --minify
 
 minification ?
 
