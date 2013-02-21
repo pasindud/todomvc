@@ -12,17 +12,21 @@ To edit and debug Dart, you can use Dart Editor. The editor ships with the [SDK]
 
 ? For testing purpose, dart/app.dart will run on any browser thanks to sdk/dart.js. First run will take time to process dart files.
 
-## Compilation result
+## Compilation to JS
 
 Dart SDK includes dart2js blahblah
 
+dart2js -oapp.dart.js app.dart
+
 minification ?
 
-## Build
+## Dart syntax analysis
 
 [![Build Status](https://drone.io/mlorber/todomvc-dart/status.png)](https://drone.io/mlorber/todomvc-dart/latest)
 
 Dart SDK is still under active development, and new releases include lots of breaking changes. The application is built by drone.io, which proposes a specific build trigger for Dart SDK updates.
+
+dart_analyzer app.dart --fatal-type-errors --fatal-warnings
 
 Build history can be seen [here](https://drone.io/mlorber/todomvc-dart)
 
