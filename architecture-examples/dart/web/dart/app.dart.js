@@ -6011,7 +6011,7 @@ $$.TodoWidget_createElement_anon2 = {"": "Closure;doneEditing_10",
 
 $$.TodoWidget_createElement_anon3 = {"": "Closure;doneEditing_11",
   call$1: function(e) {
-    return this.doneEditing_11;
+    return this.doneEditing_11.call$0();
   }
 };
 
