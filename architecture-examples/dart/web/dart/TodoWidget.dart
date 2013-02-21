@@ -65,7 +65,7 @@ class TodoWidget {
 					doneEditing();
 				}
 			})
-			..onBlur.listen((e) => doneEditing);
+			..onBlur.listen((e) => doneEditing());
 
 		return element;
 	}
