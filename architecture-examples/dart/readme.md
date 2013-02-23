@@ -8,25 +8,29 @@ Dart firstly targets the development of modern and large scale browser-side web 
 
 Dart compiles to JavaScript and thus runs across modern browsers. Dart also can run in its own virtual machine.
 
-To edit and debug Dart, you can use Dart Editor. The editor ships with the [SDK](http://dartlang.org) and [Dartium](http://www.dartlang.org/dartium/), our version of Chromium with an embedded Dart VM.
+Both dart files and compilation result are provided in this sample in this sample, therefore it actually works in any browser.
 
-? For testing purpose, dart/app.dart will run on any browser thanks to sdk/dart.js. First run will take time to process dart files.
+To edit and debug the code, you can use Dart Editor. The editor ships with the [SDK](http://dartlang.org) and [Dartium](http://www.dartlang.org/dartium/), a dedicated version of Chromium with an embedded Dart VM.
 
-## Compilation to JS
+## How to compile to js
 
-Dart SDK includes dart2js blahblah
+```
+cd web/dart
+dart2js app.dart -oapp.dart.js 
+```
 
-dart2js -oapp.dart.js app.dart --minify
-
-minification ?
+The dart2js compilator is in the Dart SDK. The currently provided JS is minified (dart2js [...] --minify).
 
 ## Dart syntax analysis
 
-[![Build Status](https://drone.io/mlorber/todomvc-dart/status.png)](https://drone.io/mlorber/todomvc-dart/latest)
+```
+cd web/dart
+dart_analyzer app.dart --fatal-type-errors --fatal-warnings
+```
 
 Dart SDK is still under active development, and new releases include lots of breaking changes. The application is built by drone.io, which proposes a specific build trigger for Dart SDK updates.
 
-dart_analyzer app.dart --fatal-type-errors --fatal-warnings
+[![Build Status](https://drone.io/mlorber/todomvc-dart/status.png)](https://drone.io/mlorber/todomvc-dart/latest)
 
 Build history can be seen [here](https://drone.io/mlorber/todomvc-dart)
 
