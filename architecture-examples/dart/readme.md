@@ -8,7 +8,7 @@ Dart firstly targets the development of modern and large scale browser-side web 
 
 Dart compiles to JavaScript and thus runs across modern browsers. Dart also can run in its own virtual machine.
 
-Both Dart files and compilation result are provided in this sample, therefore it actually works in any browser.
+Both Dart files and JS compilation result are provided in this sample, therefore it actually works in any browser.
 
 To edit and debug the code, you can use Dart Editor. The editor ships with the [SDK](http://dartlang.org) and [Dartium](http://www.dartlang.org/dartium/), a dedicated version of Chromium with an embedded Dart VM.
 
