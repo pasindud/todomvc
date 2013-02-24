@@ -3,6 +3,9 @@ var casper = require('casper').create();
 
 casper.addTodo = function(title) {
 	// TODO about initial focus testing
+	this.evaluate(function() {
+		document.querySelector('#new-todo').focus();
+	});
 	this.page.sendEvent('keydown', title);
 	// TODO remove one, but keep which event ? Jquery impl prefers keyup...
 	this.page.sendEvent('keydown', this.page.event.key.Enter);
@@ -38,6 +41,18 @@ casper.assertLeftItemsString = function(leftItemsString, message) {
 	var displayedString = this.fetchText('#todo-count').replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
 	this.test.assertEquals(displayedString, leftItemsString, message);
 };
+
+// Implementations differ but text in input should not be selected when editing
+// => this function should not have to be called
+casper.unselectText = function(selector) {
+	var textLength = this.getElementAttribute(selector, 'value').length;
+	// without this if setSelectionRange breaks Vanilla JS & anothers test run
+	if(textLength != 0) {
+		this.evaluate(function(selector, textLength) {
+			document.querySelector(selector).setSelectionRange(textLength, textLength);
+		}, selector, textLength);
+	}
+}
 
 // TODO find why most times useless
 // TODO remove localstorage instead
