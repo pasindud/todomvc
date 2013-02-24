@@ -72,7 +72,7 @@ def casper(fmk, test)
   system("#{$setCasper};$casperjs tests/#{test}.js #{$fmks[fmk]} > tests/results/#{fmk}.#{test}") ? printok : printko
 end
 
-system("mkdir tests/results")
+system("mkdir -p tests/results")
 
 def doTests(fmk)
   printf '%14s | ' % fmk
