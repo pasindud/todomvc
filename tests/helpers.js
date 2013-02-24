@@ -1,3 +1,4 @@
+// TODO make start here
 
 var casper = require('casper').create();
 var URL = casper.cli.get(1);
@@ -26,9 +27,6 @@ casper.assertItemCount = function(itemsNumber, message) {
 			// __utils__.visible seems not to work in this case...
 			if(items[i].offsetWidth > 0 || items[i].offsetHeight > 0) {
 				number++;
-			}
-			if(__utils__.visible('#todo-list li:nth-child(' + i + ')')) {
-				//number++;
 			}
 		}
 		//__utils__.echo(number);

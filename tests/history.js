@@ -1,4 +1,3 @@
-// TODO test http://casperjs.org/api.html#casper.back
 casper.start(URL, function () {
 	this.clean();
 
@@ -9,7 +8,6 @@ casper.start(URL, function () {
 	this.assertItemCount(0, 'No todo at start');
 
 	// TODO assert history "all" has class selected
-
 	this.assertLeftItemsString('0 items left', 'Left todo list count is 0');
 
 	this.test.assertNotVisible('#main', '#main section is hidden');
@@ -32,12 +30,13 @@ casper.then(function () {
 	this.assertLeftItemsString('2 items left', 'Left todo list count is 2');
 });
 
-// TODO : do not seems to work : this.click('#filters li:nth-child(2) a'); & test URL
+// TODO : does not work : this.click('#filters li:nth-child(2) a');
+// make it work, and test url result
 // GWT model...
 casper.thenOpen(URL + '#/active');
 casper.then(function () {
 	this.assertItemCount(2, 'Completed todo has been hidden, just 2 are displayed');
-	// TODO test class selected for bold test ?
+	// TODO test <a> style ?
 });
 
 casper.thenOpen(URL + '#/completed');
@@ -50,7 +49,7 @@ casper.then(function () {
 	this.assertItemCount(3, 'Three Todos are displayed again');
 });
 
-// TODO test by modifying URL
+// TODO test http://casperjs.org/api.html#casper.back
 
 casper.run(function () {
 	this.test.renderResults(true);

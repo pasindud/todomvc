@@ -31,7 +31,7 @@ casper.then(function () {
 
 // Create a second todo
 casper.then(function () {
-	// let's test trim() => in edit instead
+	// let's test trim() => TODO in edit instead
 	this.addTodo(' Some Another Task ');
 	
 	this.assertItemCount(2, 'A second todo has been added, list contains 2 items');
