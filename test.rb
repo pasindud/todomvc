@@ -17,7 +17,8 @@
 #derby        knockoutjs_classBindingProvider puremvc       troopjs
 #dermis       maria       rappidjs
 
-$tests = ['count', 'edit', 'history', 'storage']
+# do not test storage for the moment
+$tests = ['count', 'edit', 'history']
 
 $fmks = Hash.new
 $fmks['angularjs'] = 'architecture-examples/angularjs/index.html'
