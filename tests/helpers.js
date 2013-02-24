@@ -1,5 +1,8 @@
 
 var casper = require('casper').create();
+var URL = casper.cli.get(1);
+
+casper.echo("Testing " + URL, 'PARAMETER');
 
 casper.addTodo = function(title) {
 	// TODO about initial focus testing
@@ -12,6 +15,7 @@ casper.addTodo = function(title) {
 	this.page.sendEvent('keyup', this.page.event.key.Enter);
 };
 
+// TODO rename "displayed" items
 casper.assertItemCount = function(itemsNumber, message) {
 	this.test.assertEval(function (itemsAwaitedNumber) {
 		var items = document.querySelectorAll('#todo-list li');

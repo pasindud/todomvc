@@ -71,7 +71,8 @@ def casper(fmk, test)
   # TODO option to enable casperjs output instead of table
   #print "#{$setCasper};$casperjs tests/#{test}.js #{$fmks[fmk]} > /dev/null"
   #print "\n"
-  system("#{$setCasper};$casperjs tests/#{test}.js #{$fmks[fmk]} > tests/results/#{fmk}.#{test}") ? printok : printko
+  cmd = "#{$setCasper};$casperjs --includes=tests/helpers.js test tests/#{test}.js #{$fmks[fmk]} > tests/results/#{fmk}.#{test}"
+  system(cmd) ? printok : printko
 end
 
 system("mkdir -p tests/results")

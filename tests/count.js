@@ -1,46 +1,5 @@
-
-var casper = require('casper').create();
-
 // De l'intérêt de faire plusieurs then ?
 // faire une table de correspondance pour les diff implem plutot (juste avoir a mettre "dart" par exemple)
-
-// TODO see for include helper functions common file
-var URL = casper.cli.get(0);
-
-casper.addTodo = function(title) {
-	// TODO about initial focus testing
-	this.page.sendEvent('keydown', title);
-	// TODO remove one, but keep which event ? Jquery impl prefers keyup...
-	this.page.sendEvent('keydown', this.page.event.key.Enter);
-	this.page.sendEvent('keyup', this.page.event.key.Enter);
-};
-
-// TODO rename "displayed" items
-casper.assertItemCount = function(itemsNumber, message) {
-	this.test.assertEval(function (itemsNumber) {
-		return document.querySelectorAll('#todo-list li').length === itemsNumber;
-	}, message, {itemsNumber: itemsNumber});
-}
-
-casper.assertLeftItemsString = function(leftItemsString, message) {
-	var displayedString = this.fetchText('#todo-count').replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
-	this.test.assertEquals(displayedString, leftItemsString, message);
-};
-
-// TODO find why most times useless
-// TODO remove localstorage instead
-casper.clean = function() {
-	this.evaluate(function() {
-		document.querySelector('#clear-completed').click();
-	});
-	this.evaluate(function() {
-		document.querySelector('#toggle-all').click();
-	});
-	this.evaluate(function() {
-		document.querySelector('#clear-completed').click();
-	});
-};
-
 casper.start(URL, function () {
 	this.clean();
 
