@@ -1,6 +1,8 @@
 
 var casper = require('casper').create();
 
+// TODO test http://casperjs.org/api.html#casper.back
+
 // test URL : '../architecture-examples/angularjs/index.html';
 var URL = casper.cli.get(0);
 
@@ -13,9 +15,23 @@ casper.addTodo = function(title) {
 };
 
 casper.assertItemCount = function(itemsNumber, message) {
-	this.test.assertEval(function (itemsNumber) {
-		return document.querySelectorAll('#todo-list li').length === itemsNumber;
-	}, message, {itemsNumber: itemsNumber});
+	this.test.assertEval(function (itemsAwaitedNumber) {
+		var items = document.querySelectorAll('#todo-list li');
+		var number = 0;
+		for(var i = 0 ; i < items.length ; i++) {
+			// how to accept only displayed elements ?
+			// => https://groups.google.com/forum/?fromgroups=#!topic/jquery-dev/4Ys5mzbQP08
+			// __utils__.visible seems not to work in this case...
+			if(items[i].offsetWidth > 0 || items[i].offsetHeight > 0) {
+				number++;
+			}
+			if(__utils__.visible('#todo-list li:nth-child(' + i + ')')) {
+				//number++;
+			}
+		}
+		//__utils__.echo(number);
+		return number === itemsAwaitedNumber;
+	}, message, itemsNumber);
 }
 
 casper.assertLeftItemsString = function(leftItemsString, message) {
@@ -44,7 +60,7 @@ casper.start(URL, function () {
 
 	// TODO test for initial status ?
 	// with storage tests ?
-	this.assertItemCount(0 , 'No todo at start');
+	this.assertItemCount(0, 'No todo at start');
 
 	// TODO assert history "all" has class selected
 
@@ -61,7 +77,7 @@ casper.then(function () {
 	this.addTodo('Another Task');
 	this.addTodo('A third Task');
 
-	this.assertItemCount(3 , 'We now have displayed 3 todos');
+	this.assertItemCount(3, 'We now have displayed 3 todos');
 
 	this.assertLeftItemsString('3 items left', 'Left todo list count is 3');
 
@@ -70,21 +86,22 @@ casper.then(function () {
 	this.assertLeftItemsString('2 items left', 'Left todo list count is 2');
 });
 
+// TODO : do not seems to work : this.click('#filters li:nth-child(2) a'); & test URL
+// GWT model...
+casper.thenOpen(URL + '#/active');
 casper.then(function () {
-	// TODO use [href=#/selected] would be better, but not necessarly a link ?
-	// GWT model...
-	// see clickLabel
-	this.click('#filters li:nth-child(2) a');
+	this.assertItemCount(2, 'Completed todo has been hidden, just 2 are displayed');
+	// TODO test class selected for bold test ?
+});
 
-	// TODO test URL at each time
+casper.thenOpen(URL + '#/completed');
+casper.then(function () {
+	this.assertItemCount(1, 'Only the completed Todo is displayed');
+});
 
-	this.assertItemCount(2 , 'Completed todo has been hidden, just 2 are displayed');
-	this.test.assertEquals(this.fetchText('#todo-list li:nth-child(2) label'), 'A third Task', 'Second displayed todo is "A third Task"');
-
-	this.click('#filters li:nth-child(3) a');
-
-	this.assertItemCount(1 , 'Just one Todo is displayed');
-	this.test.assertEquals(this.fetchText('#todo-list li:nth-child(1) label'), 'Another Task', 'Displayed todo is "Another Task"');
+casper.thenOpen(URL + '#/');
+casper.then(function () {
+	this.assertItemCount(3, 'Three Todos are displayed again');
 });
 
 // TODO test by modifying URL

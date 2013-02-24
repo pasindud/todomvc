@@ -5,8 +5,6 @@ var casper = require('casper').create();
 // faire une table de correspondance pour les diff implem plutot (juste avoir a mettre "dart" par exemple)
 
 // TODO see for include helper functions common file
-
-// test URL : '../architecture-examples/angularjs/index.html';
 var URL = casper.cli.get(0);
 
 casper.addTodo = function(title) {
@@ -48,7 +46,7 @@ casper.start(URL, function () {
 
 	this.test.assertTitleMatch(/TodoMVC$/, 'Page title contains TodoMVC');
 
-	this.assertItemCount(0 , 'No todo at start');
+	this.assertItemCount(0, 'No todo at start');
 
 	this.assertLeftItemsString('0 items left', 'Left todo list count is 0');
 
@@ -74,7 +72,7 @@ casper.then(function () {
 
 // Create a second todo
 casper.then(function () {
-	// let's test trim()
+	// let's test trim() => in edit instead
 	this.addTodo(' Some Another Task ');
 	
 	this.assertItemCount(2, 'A second todo has been added, list contains 2 items');

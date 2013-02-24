@@ -46,7 +46,7 @@ casper.start(URL, function () {
 
 	// TODO test for initial status ?
 	// with storage tests ?
-	this.assertItemCount(0 , 'No todo at start');
+	this.assertItemCount(0, 'No todo at start');
 
 	this.assertLeftItemsString('0 items left', 'Left todo list count is 0');
 
@@ -61,7 +61,7 @@ casper.then(function () {
 	this.addTodo('Another Task');
 	this.addTodo('A third Task');
 
-	this.assertItemCount(3 , 'We now have 3 todos');
+	this.assertItemCount(3, 'We now have 3 todos');
 });
 
 casper.run(function () {

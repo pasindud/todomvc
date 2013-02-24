@@ -1,7 +1,6 @@
 
 var casper = require('casper').create();
 
-// test URL : '../architecture-examples/angularjs/index.html';
 var URL = casper.cli.get(0);
 
 casper.addTodo = function(title) {
@@ -57,7 +56,7 @@ casper.start(URL, function () {
 
 	this.test.assertTitleMatch(/TodoMVC$/, 'Page title contains TodoMVC');
 
-	this.assertItemCount(0 , 'No todo at start');
+	this.assertItemCount(0, 'No todo at start');
 
 	this.test.assertNotVisible('#main', '#main section is hidden');
 	this.test.assertNotVisible('#toggle-all', '#toggle-all checkbox is hidden');
@@ -86,8 +85,6 @@ casper.then(function() {
 	this.test.assertVisible('#todo-list li:first-child .edit');
 	
 	this.page.sendEvent('keypress', ' edited');
-	// this.page.sendEvent('keyup', ' edited');
-	// TODO remove one, but keep which event ? Jquery impl prefers keyup...
 	this.page.sendEvent('keypress', this.page.event.key.Enter);
 	
 	this.test.assertVisible('#todo-list li:first-child label');
@@ -109,11 +106,8 @@ casper.then(function() {
 	this.page.sendEvent('keypress', ' and the neighborhood');
 
 	this.evaluate(function() {
-		// Focus another element
 		document.querySelector('#todo-list li:nth-child(2) .edit').blur();
 	});
-	//this.test.assertEquals(this.getElementAttribute('#todo-list li:first-child .edit', 'value'), 'Some Task edited', 'Task title has been changed');
-	// this.page.sendEvent('keyup', this.page.event.key.Enter);
 
 	this.test.assertVisible('#todo-list li:nth-child(2) label');
 	this.test.assertNotVisible('#todo-list li:nth-child(2) .edit');
