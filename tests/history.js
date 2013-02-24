@@ -37,7 +37,7 @@ casper.assertItemCount = function(itemsNumber, message) {
 casper.assertLeftItemsString = function(leftItemsString, message) {
 	// Backbone for example does not update string since it's not displayed. It's a valid optimization
 	if(leftItemsString == '0 items left' && !this.visible('#todo-count')) {
-		this.echo('Left items label is not displayed - ' + message);
+		this.test.assertTrue(true, 'Left items label is not displayed - ' + message);
 		return;
 	}
 	var displayedString = this.fetchText('#todo-count').replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
