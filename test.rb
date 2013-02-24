@@ -69,8 +69,10 @@ def casper(fmk, test)
   # TODO option to enable casperjs output instead of table
   #print "#{$setCasper};$casperjs tests/#{test}.js #{$fmks[fmk]} > /dev/null"
   #print "\n"
-  system("#{$setCasper};$casperjs tests/#{test}.js #{$fmks[fmk]} > /dev/null") ? printok : printko
+  system("#{$setCasper};$casperjs tests/#{test}.js #{$fmks[fmk]} > tests/results/#{fmk}.#{test}") ? printok : printko
 end
+
+system("mkdir tests/results")
 
 def doTests(fmk)
   printf '%14s | ' % fmk
@@ -79,7 +81,7 @@ def doTests(fmk)
       casper(fmk, test)
     end
   else
-    casper(fmk, $stest)
+    casper(fmk, $test)
   end
   print "\n"
 end
