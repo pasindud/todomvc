@@ -6,6 +6,9 @@ var URL = casper.cli.get(0);
 
 casper.addTodo = function(title) {
 	// TODO about initial focus testing
+	this.evaluate(function() {
+		document.querySelector('#new-todo').focus();
+	});
 	this.page.sendEvent('keydown', title);
 	// TODO remove one, but keep which event ? Jquery impl prefers keyup...
 	this.page.sendEvent('keydown', this.page.event.key.Enter);
@@ -22,6 +25,15 @@ casper.assertLeftItemsString = function(leftItemsString, message) {
 	var displayedString = this.fetchText('#todo-count').replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
 	this.test.assertEquals(displayedString, leftItemsString, message);
 };
+
+// Implementations differ but text in input should not be selected when editing
+// => this function should not have to be called
+casper.unselectText = function(selector) {
+	var textLength = this.getElementAttribute(selector, 'value').length;
+	this.evaluate(function(selector, textLength) {
+		document.querySelector(selector).setSelectionRange(textLength, textLength);
+	}, selector, textLength);
+}
 
 // TODO find why most times useless
 // TODO remove localstorage instead
@@ -44,60 +56,66 @@ casper.start(URL, function () {
 
 	this.assertItemCount(0 , 'No todo at start');
 
-	this.assertLeftItemsString('0 items left', 'Left todo list count is 0');
-
 	this.test.assertNotVisible('#main', '#main section is hidden');
 	this.test.assertNotVisible('#toggle-all', '#toggle-all checkbox is hidden');
 	this.test.assertNotVisible('#todo-count', '#todo-count span is hidden');
 });
 
-// Create a first todo
+// Create and remove a first todo
 casper.then(function () {
 	this.addTodo('Some Task');
-
 	this.assertItemCount(1, 'One todo has been added, list contains 1 item');
-
-	this.assertLeftItemsString('1 item left', 'Left todo list count is 1');
-
-	this.test.assertEquals(this.fetchText('#todo-list li:first-child label'), 'Some Task', 'First todo is "Some Task"');
-
-	this.test.assertVisible('#main', '#main section is displayed');
-	this.test.assertVisible('#toggle-all', '#toggle-all checkbox is displayed');
-	this.test.assertVisible('#todo-count', '#todo-count span is displayed');
-});
-
-// remove one
-casper.then(function () {
-	this.click('#todo-list li:nth-child(1) button');
-	//this.mouseEvent('click', '#todo-list li:nth-child(1) button');
-	//this.evaluate(function() {
-	//	__utils__.mouseEvent('click', '#todo-list li:nth-child(1) button');
-	//});
-
-	this.assertLeftItemsString('0 items left', 'Todo has been removed');
+	this.click('#todo-list li:first-child button');
+	this.assertItemCount(0, 'Todo has been removed');
 });
 
 // edit one
 casper.then(function() {
-	this.addTodo('Some Task');
-	this.test.assertVisible('#todo-list li:nth-child(1) label');
-	this.test.assertNotVisible('#todo-list li:nth-child(1) .edit');
-	//this.click('#todo-list li:nth-child(1) label');
-	// TODO how to dblclick ?
+	this.addTodo('Another Task');
+
+	this.test.assertVisible('#todo-list li:first-child label');
+	this.test.assertNotVisible('#todo-list li:first-child .edit');
+
+	this.mouseEvent('dblclick', '#todo-list li:first-child label');
+	this.unselectText('#todo-list li:first-child .edit');
+
+	this.test.assertNotVisible('#todo-list li:first-child label');
+	this.test.assertVisible('#todo-list li:first-child .edit');
 	
-	//this.click('#todo-list li:nth-child(1) label');
-	this.mouseEvent('dblclick', '#todo-list li:nth-child(1) label');
-	//this.evaluate(function() {
-	//	__utils__.mouseEvent('dblclick', '#todo-list li:nth-child(1) label');
-	//});
-	this.test.assertNotVisible('#todo-list li:nth-child(1) label');
-	this.test.assertVisible('#todo-list li:nth-child(1) .edit');
-	// Specs do not specify if text must be selected (?)
-	this.page.sendEvent('keydown', ' edited');
+	this.page.sendEvent('keypress', ' edited');
+	// this.page.sendEvent('keyup', ' edited');
 	// TODO remove one, but keep which event ? Jquery impl prefers keyup...
-	this.page.sendEvent('keydown', this.page.event.key.Enter);
-	this.page.sendEvent('keyup', this.page.event.key.Enter);
-	this.test.assertEquals(this.fetchText('#todo-list li:nth-child(1) label'), 'Some Task edited', 'Task title has been changed');
+	this.page.sendEvent('keypress', this.page.event.key.Enter);
+	
+	this.test.assertVisible('#todo-list li:first-child label');
+	this.test.assertNotVisible('#todo-list li:first-child .edit');
+
+	this.test.assertEquals(this.fetchText('#todo-list li:first-child label'), 'Another Task edited', 'Task title has been changed');
+});
+
+
+// edit one and onblur
+casper.then(function() {
+	this.addTodo('Conquer the world');
+
+	this.test.assertVisible('#todo-list li:nth-child(2) label');
+
+	this.mouseEvent('dblclick', '#todo-list li:nth-child(2) label');
+	this.unselectText('#todo-list li:nth-child(2) .edit');
+
+	this.page.sendEvent('keypress', ' and the neighborhood');
+
+	this.evaluate(function() {
+		// Focus another element
+		document.querySelector('#todo-list li:nth-child(2) .edit').blur();
+	});
+	//this.test.assertEquals(this.getElementAttribute('#todo-list li:first-child .edit', 'value'), 'Some Task edited', 'Task title has been changed');
+	// this.page.sendEvent('keyup', this.page.event.key.Enter);
+
+	this.test.assertVisible('#todo-list li:nth-child(2) label');
+	this.test.assertNotVisible('#todo-list li:nth-child(2) .edit');
+
+	this.test.assertEquals(this.fetchText('#todo-list li:nth-child(2) label'), 'Conquer the world and the neighborhood', 'Task title has been changed');
 });
 
 casper.run(function () {

@@ -2,6 +2,7 @@
 
 # TODO check ko due to false dir is obvious
 # TODO for use './test.rb fmk scenario' (scenario optional)
+# TODO option verbose
 
 #agilityjs  angularjs-perf  canjs   dart    emberjs   jquery    knockoutjs  yui
 #angularjs  backbone  closure   dojo    gwt   knockback spine
